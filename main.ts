@@ -1,5 +1,5 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(img`
+    mycamera = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -16,7 +16,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, Space_plane, 200, 0)
+        `, mySprite, 200, 0)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fire, 500)
@@ -28,9 +28,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
 })
 let other_sprite: Sprite = null
-let projectile: Sprite = null
-let Space_plane: Sprite = null
-Space_plane = sprites.create(img`
+let mycamera: Sprite = null
+let mySprite: Sprite = null
+mySprite = sprites.create(img`
     ..ccc..........ffffff...
     ..f44c.......ffcc22ff...
     ..f244c...fffccccfff....
@@ -48,8 +48,9 @@ Space_plane = sprites.create(img`
     ........ffffff..........
     ........................
     `, SpriteKind.Player)
-controller.moveSprite(Space_plane, 210, 210)
-Space_plane.setStayInScreen(true)
+controller.moveSprite(mySprite, 210, 210)
+mySprite.setStayInScreen(true)
+scene.cameraFollowSprite(mySprite)
 info.setLife(4)
 game.onUpdateInterval(1000, function () {
     other_sprite = sprites.create(img`
